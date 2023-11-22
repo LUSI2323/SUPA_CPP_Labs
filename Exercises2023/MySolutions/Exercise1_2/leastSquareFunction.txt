@@ -1,0 +1,2 @@
+The function obtained from least squares fitting is
+y= 0.126266x + 2.02628
