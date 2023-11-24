@@ -1,17 +1,21 @@
 //Assignment 1 created by Lucia Barbieri on 21/11/23
-#ifndef CUSTOMFUNCTIONS_H
-#define CUSTOMFUNCTIONS_H
-
-#include <vector>
-#include <string>
+#pragma once
 
 std::pair<std::vector<float>, std::vector<float> > storeData(std::string); //store data in vectors X and Y
 
-int printData(std::vector<float>, std::vector<float>); //print the data on terminal
+void selectLines(int&, int); //select number of lines to be printed
 
-std::vector<float> calculateMagnitude(std::vector<float>, std::vector<float>); //cslculate magnitude of data
+int printData(std::vector<float>, std::vector<float>,int); //print the data on terminal-case 2 vectors + int for file length
+int printData(std::vector<float>, int); //print the data on terminal-case 1 vector + int for file length
+int printData(float, float, float); //print the data on terminal-case 3 float
 
-int leastSquaresFitting(std::vector<float>, std::vector<float>); //perform least suare fitting on data
+//save data overloads
+int saveData(std::string,float, float, float); //fitting function and chi squared
+int saveData(std::string, std::string, std::vector<float> ); //magnitudes or x^y
 
-#endif
+std::vector<float> calculateMagnitude(std::vector<float>, std::vector<float>); //calculate magnitude of data
+
+int leastSquaresFitting(std::vector<float>, std::vector<float>, std::vector<float>); //perform least squares fitting on data
+
+float xPowerY(float x, int y); //calculate x^y (recursive)
 

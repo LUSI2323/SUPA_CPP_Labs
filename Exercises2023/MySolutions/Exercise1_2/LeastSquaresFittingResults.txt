@@ -1,0 +1,3 @@
+The function obtained from least squares fitting is
+y= 0.126266x + 2.02628
+with reduced Chi squared: 34401.9
