@@ -187,9 +187,8 @@ int leastSquaresFitting(std::vector<float> X, std::vector<float> Y, std::vector<
 float xPowerY(float x, int y) {
     if (y == 0) {
         return 1;
-    } else if (y < 0) {
-        return 1.0 / xPowerY(x, -y);
-    } else {
+    } 
+    else {
         return x * xPowerY(x, y - 1);
     }
 }
