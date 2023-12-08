@@ -62,9 +62,25 @@ Integration by hand (output needed to normalise function when plotting)
 ###################
 */ 
 double FiniteFunction::integrate(int Ndiv){ //private
-  //ToDo write an integrator
-  return -99;  
+  //write an integrator--->trapezoidal rule
+  //return -99; 
+  double I = 0.0; //initialize area
+  double dx = (m_RMax - m_RMin) / static_cast<double>(Ndiv); //width of a bin
+
+  for (int i = 0; i < Ndiv; ++i) {
+        double x_left = m_RMin + i * dx;
+        double x_right = m_RMin + (i + 1) * dx;
+
+        double f_left = callFunction(x_left);
+        double f_right = callFunction(x_right);
+
+        I += 0.5 * (f_left + f_right) * dx; //assuming infinitesimal bins
+    }
+
+    return I;
 }
+
+
 double FiniteFunction::integral(int Ndiv) { //public
   if (Ndiv <= 0){
     std::cout << "Invalid number of divisions for integral, setting Ndiv to 1000" <<std::endl;
@@ -162,7 +178,7 @@ std::vector< std::pair<double,double> > FiniteFunction::makeHist(std::vector<dou
   for (double point : points){
     //Get bin index (starting from 0) the point falls into using point value, range, and Nbins
     int bindex = static_cast<int>(floor((point-m_RMin)/((m_RMax-m_RMin)/(double)Nbins)));
-    if (bindex<0 || bindex>Nbins){
+    if (bindex<0 || bindex>Nbins-1){
       continue;
     }
     bins[bindex]++; //weight of 1 for each data point
