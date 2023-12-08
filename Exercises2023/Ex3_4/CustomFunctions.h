@@ -1,3 +1,4 @@
+//created by Lucia Barbieri on 8/12/23
 #pragma once
 
 #include "FiniteFunctions.h" //parent
@@ -10,6 +11,7 @@ class NormalFunction : public FiniteFunction{
     //override functions
         double callFunction(double x) override;
         void printInfo() override;
+        //double sampleMetropolis() override;
     //variables
         double mu;
         double sigma;
@@ -27,6 +29,7 @@ class CauchyLorentzFunction : public FiniteFunction {
     //override functions
         double callFunction(double x) override;
         void printInfo() override;
+        //double sampleMetropolis() override;
     //variables
         double x0;
         double gamma;
@@ -46,6 +49,7 @@ class NegativeCrystalBallFunction : public FiniteFunction {
     //override functions
         double callFunction(double x) override;
         void printInfo() override;
+        //double sampleMetropolis() override;
     //variables
         double xbar;
         double sigma;

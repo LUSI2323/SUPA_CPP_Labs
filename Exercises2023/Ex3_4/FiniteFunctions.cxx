@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <random>
 #include "FiniteFunctions.h"
 #include <filesystem> //To check extensions in a nice way
 
@@ -55,6 +56,40 @@ double FiniteFunction::rangeMax() {return m_RMax;};
 */ 
 double FiniteFunction::invxsquared(double x) {return 1/(1+x*x);};
 double FiniteFunction::callFunction(double x) {return this->invxsquared(x);}; //(overridable)
+
+/*
+###################
+//Function sampling
+###################
+*/ 
+double FiniteFunction::sampleMetropolis() { //FiniteFunction& sampleFunction
+    std::random_device rd;
+    std::mt19937 mtEngine(rd());
+    std::uniform_real_distribution<> UnifDistr(m_RMin, m_RMax);
+
+    double xi = UnifDistr(mtEngine); //Step 1: Generate a random number xi on the range where the function is defined, sampled from a uniform function.
+
+    std::normal_distribution<> normalDistr(xi, 0.1); // 1 arbitrary sigma
+    double y = normalDistr(mtEngine); //Step 2: Generate a second random number y from a normal distribution centred on xi and using an arbitrarily chosen standard deviation
+    //evaluate the function at xi and y
+   //double fx = sampleFunction.callFunction(xi); //the appropriate function!
+    //double fy = sampleFunctioncallFunction(y);
+    double fx = callFunction(xi); //the appropriate function!
+    double fy = callFunction(y);
+
+    double A = std::min(fy / fx, 1.0); //Step 3: A = min(f(y) / f(xi), 1)
+
+    std::uniform_real_distribution<> TDistr(0.0, 1.0);
+    double T = TDistr(mtEngine); //Step 4: generate a random number T between 0 and 1
+
+    if (T < A) {
+        return y; //Step 5: If T < A then xi+1= y
+    } 
+    else {
+        return xi; // If not,  xi+1=xi
+    }
+
+}
 
 /*
 ###################

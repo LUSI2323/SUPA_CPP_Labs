@@ -1,3 +1,5 @@
+//created by Lucia Barbieri on 8/12/23
+
 #include "CustomFunctions.h"
 #include <cmath>
 #include <iostream>
@@ -15,7 +17,7 @@ double NormalFunction::normdistr(double mu, double sigma, double x) { return exp
 
 double NormalFunction::callFunction(double x) {
     return this->normdistr(m_mu, m_sigma, x); //override: it call normdistr
-};
+}
 
 void NormalFunction::printInfo() {
     FiniteFunction::printInfo();
@@ -38,7 +40,7 @@ double CauchyLorentzFunction::cldistr(double x0, double gamma, double sigma, dou
 
 double CauchyLorentzFunction::callFunction(double x) {
     return this->cldistr(m_x0, m_gamma, m_sigma, x); //override: it call cldistr
-};
+}
 
 void CauchyLorentzFunction::printInfo() {
     FiniteFunction::printInfo();
@@ -74,7 +76,7 @@ double NegativeCrystalBallFunction::ncbdistr(double xbar, double sigma, double n
 
 double NegativeCrystalBallFunction::callFunction(double x) {
     return this->ncbdistr(m_xbar, m_sigma, m_n, m_alpha, x); //override: it call ncbdistr
-};
+}
 
 void NegativeCrystalBallFunction::printInfo() {
     FiniteFunction::printInfo();

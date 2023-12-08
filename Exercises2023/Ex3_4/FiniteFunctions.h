@@ -5,7 +5,6 @@
 #pragma once //Replacement for IFNDEF
 
 class FiniteFunction{
-
 public:
   FiniteFunction(); //Empty constructor
   FiniteFunction(double range_min, double range_max, std::string outfile); //Variable constructor
@@ -18,6 +17,9 @@ public:
   void setRangeMax(double RMax);
   void setOutfile(std::string outfile);
   void plotFunction(); //Plot the function using scanFunction
+
+  ////////for sampling
+  virtual double sampleMetropolis(); //FiniteFunction& sampleFunction
   
   //Plot the supplied data points (either provided data or points sampled from function) as a histogram using NBins
   void plotData(std::vector<double> &points, int NBins, bool isdata=true); //NB! use isdata flag to pick between data and sampled distributions
