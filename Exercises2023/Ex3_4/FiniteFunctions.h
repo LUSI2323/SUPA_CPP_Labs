@@ -19,7 +19,7 @@ public:
   void plotFunction(); //Plot the function using scanFunction
 
   ////////for sampling
-  virtual double sampleMetropolis(); //FiniteFunction& sampleFunction
+  virtual void sampleMetropolis(std::vector<double>* sampleData); //FiniteFunction& sampleFunction
   
   //Plot the supplied data points (either provided data or points sampled from function) as a histogram using NBins
   void plotData(std::vector<double> &points, int NBins, bool isdata=true); //NB! use isdata flag to pick between data and sampled distributions

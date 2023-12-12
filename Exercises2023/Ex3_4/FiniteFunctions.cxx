@@ -62,32 +62,35 @@ double FiniteFunction::callFunction(double x) {return this->invxsquared(x);}; //
 //Function sampling
 ###################
 */ 
-double FiniteFunction::sampleMetropolis() { //FiniteFunction& sampleFunction
+void FiniteFunction::sampleMetropolis(std::vector<double>* sampleData) { //FiniteFunction& sampleFunction
+    int n_samples = 10000;
     std::random_device rd;
     std::mt19937 mtEngine(rd());
-    std::uniform_real_distribution<> UnifDistr(m_RMin, m_RMax);
+    std::uniform_real_distribution<> UnifDistr(rangeMin(), rangeMax());
+    double X = UnifDistr(mtEngine); //Step 1: Generate a random number xi on the range where the function is defined, sampled from a uniform function.
+    
+    int n = 0; //initilaize variable to keep track of the number of sample data created
+    while (n <= n_samples) {
+          std::normal_distribution<> normalDistr(X, 0.8); // 1 arbitrary sigma
+          double y = normalDistr(mtEngine); //Step 2: Generate a second random number y from a normal distribution centred on xi and using an arbitrarily chosen standard deviation
+          //evaluate the function at X=xi and y
+          double fx = callFunction(X); //the appropriate function!
+          double fy = callFunction(y);
+          double A = std::min(fy / fx, 1.0); //Step 3: A = min(f(y) / f(xi), 1)
 
-    double xi = UnifDistr(mtEngine); //Step 1: Generate a random number xi on the range where the function is defined, sampled from a uniform function.
-
-    std::normal_distribution<> normalDistr(xi, 0.1); // 1 arbitrary sigma
-    double y = normalDistr(mtEngine); //Step 2: Generate a second random number y from a normal distribution centred on xi and using an arbitrarily chosen standard deviation
-    //evaluate the function at xi and y
-   //double fx = sampleFunction.callFunction(xi); //the appropriate function!
-    //double fy = sampleFunctioncallFunction(y);
-    double fx = callFunction(xi); //the appropriate function!
-    double fy = callFunction(y);
-
-    double A = std::min(fy / fx, 1.0); //Step 3: A = min(f(y) / f(xi), 1)
-
-    std::uniform_real_distribution<> TDistr(0.0, 1.0);
-    double T = TDistr(mtEngine); //Step 4: generate a random number T between 0 and 1
-
-    if (T < A) {
-        return y; //Step 5: If T < A then xi+1= y
-    } 
-    else {
-        return xi; // If not,  xi+1=xi
+          std::uniform_real_distribution<> TDistr(0.0, 1.0);
+          double T = TDistr(mtEngine); //Step 4: generate a random number T between 0 and 1
+          if (T < A) {
+              X = y;
+              sampleData->push_back(y); //Step 5: If T < A return y, then xi+1= y
+              n++;
+          } 
+          else {
+              n++; // If not,  xi+1=xi
+          }     
     }
+    std::cout<<"Finished sampling!"<<std::endl;
+    //return sampleData;
 
 }
 

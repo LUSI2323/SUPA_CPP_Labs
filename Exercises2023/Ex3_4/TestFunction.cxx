@@ -65,32 +65,28 @@ int main(){
  std::vector<double> sampledCauchyData;
  std::vector<double> sampledNegativeCrystalBallData;
 
- int n_samples = 200;
  //sampled data for each distribution
- for (int i = 0; i < n_samples; ++i) {
-        //sampledDefaultData.push_back(myFunction.sampleMetropolis(myFunction));
-        sampledDefaultData.push_back(myFunction.callFunction(myFunction.sampleMetropolis()));
-        sampledNormalData.push_back(myNormalFunction.callFunction(myNormalFunction.sampleMetropolis()));
-        sampledCauchyData.push_back(myCauchyLorentzFunction.callFunction(myCauchyLorentzFunction.sampleMetropolis()));
-        sampledNegativeCrystalBallData.push_back(myNegativeCrystalBallFunction.callFunction(myNegativeCrystalBallFunction.sampleMetropolis()));
-    }
+myFunction.sampleMetropolis(&sampledDefaultData);
+myNormalFunction.sampleMetropolis(&sampledNormalData);
+myCauchyLorentzFunction.sampleMetropolis(&sampledCauchyData);
+myNegativeCrystalBallFunction.sampleMetropolis(&sampledNegativeCrystalBallData);
 
-    myFunction.plotFunction(); //plot the function f(x)
-    myFunction.plotData(dataPoints, 500, true); //plot data points from MysteryData03122
-    myFunction.plotData(sampledDefaultData, 200, false);
+myFunction.plotFunction(); //plot the function f(x)
+myFunction.plotData(dataPoints, 500, true); //plot data points from MysteryData03122
+myFunction.plotData(sampledDefaultData, 200, false);
 
-    myNormalFunction.plotFunction(); // plot the function f(x) for NormalDistribution
-    myNormalFunction.plotData(dataPoints, 500, true); // plot data points for NormalDistribution
-    myNormalFunction.plotData(sampledNormalData, 200, false);
+myNormalFunction.plotFunction(); // plot the function f(x) for NormalDistribution
+myNormalFunction.plotData(dataPoints, 500, true); // plot data points for NormalDistribution
+myNormalFunction.plotData(sampledNormalData, 200, false);
     
-    myCauchyLorentzFunction.plotFunction(); 
-    myCauchyLorentzFunction.plotData(dataPoints, 500, true); 
-    myCauchyLorentzFunction.plotData(sampledCauchyData, 200, false);
+myCauchyLorentzFunction.plotFunction(); 
+myCauchyLorentzFunction.plotData(dataPoints, 500, true); 
+myCauchyLorentzFunction.plotData(sampledCauchyData, 200, false);
 
-    myNegativeCrystalBallFunction.plotFunction(); // plot the function f(x) for NormalDistribution
-    myNegativeCrystalBallFunction.plotData(dataPoints, 500, true); // plot data points for NormalDistribution
-    myNegativeCrystalBallFunction.plotData(sampledNegativeCrystalBallData, 200, false);
+myNegativeCrystalBallFunction.plotFunction(); // plot the function f(x) for NormalDistribution
+myNegativeCrystalBallFunction.plotData(dataPoints, 500, true); // plot data points for NormalDistribution
+myNegativeCrystalBallFunction.plotData(sampledNegativeCrystalBallData, 200, false);
 
-    return 0;
+return 0;
 }
 
